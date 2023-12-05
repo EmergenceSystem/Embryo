@@ -6,7 +6,7 @@ pub struct Embryo {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct EmPair {
+pub struct EmPair {
     name: String,
     value: String,
 }
