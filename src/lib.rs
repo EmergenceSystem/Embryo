@@ -1,12 +1,12 @@
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-struct Embryo {
-    properties: Vec<NameValuePair>,
+pub struct Embryo {
+    properties: Vec<EmPair>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct NameValuePair {
+struct EmPair {
     name: String,
     value: String,
 }
