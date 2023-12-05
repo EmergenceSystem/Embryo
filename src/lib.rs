@@ -2,11 +2,11 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Embryo {
-    properties: Vec<EmPair>,
+    pub properties: Vec<EmPair>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmPair {
-    name: String,
-    value: String,
+    pub name: String,
+    pub value: String,
 }
