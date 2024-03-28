@@ -6,15 +6,9 @@ pub struct Embryo {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub enum EmValue {
-    StringValue(String),
-    PairValue(Box<EmPair>),
-}
-
-#[derive(Debug, Serialize, Deserialize)]
 pub struct EmPair {
     pub name: String,
-    pub value: EmValue,
+    pub value: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
