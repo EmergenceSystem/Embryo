@@ -3,6 +3,7 @@ use serde::{Serialize, Deserialize};
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::{Path, PathBuf};
+use std::env;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Embryo {
@@ -70,4 +71,17 @@ pub fn read_file(path: &Path) -> HashMap<String, HashMap<String, String>> {
     }
 
     map
+}
+
+pub fn get_em_disco_url() -> String {
+    match env::var("server_url") {
+        Ok(url) => url,
+        Err(_) => {
+            let config_map = read_emergence_conf().unwrap_or_default();
+            match config_map.get("em_disco").and_then(|em_disco| em_disco.get("server_url")) {
+                Some(url) => url.clone(),
+                None => "http://localhost:8080".to_string(),
+            }
+        },
+    }
 }
