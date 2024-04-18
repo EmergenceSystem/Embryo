@@ -4,6 +4,7 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::{Path, PathBuf};
 use std::env;
+use std::collections::HashSet;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Embryo {
@@ -84,4 +85,23 @@ pub fn get_em_disco_url() -> String {
             }
         },
     }
+}
+
+pub fn merge_lists_by_url(mut uri_list: Vec<Embryo>, other_list: Vec<Embryo>) -> Vec<Embryo> {
+    uri_list.extend(other_list);
+
+    let mut added_elements = HashSet::new();
+
+    let result: Vec<_> = uri_list
+        .into_iter()
+        .filter(|embryo| {
+            let has_duplicate_url = embryo.properties.iter().any(|(name, value)| {
+                name == "url" && !added_elements.insert(value.clone())
+            });
+
+            !has_duplicate_url
+        })
+    .collect();
+
+    result
 }
